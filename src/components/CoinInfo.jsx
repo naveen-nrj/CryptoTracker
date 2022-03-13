@@ -19,56 +19,13 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "center",
         marginTop: 25,
         padding: 40,
-        [theme?.breakpoints.down("md")]: {
+        [theme.breakpoints.down("md")]: {
             width: "100%",
             marginTop: 0,
             padding: 20,
             paddingTop: 0,
         },
     },
-    sidebar: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginTop: 25,
-        borderRight: "2px solid grey",
-        width: "30%",
-        [theme?.breakpoints.down("md")]: {
-            width: "30%",
-        },
-    },
-    heading: {
-        fontWeight: "bold",
-        marginBottom: 20,
-        fontFamily: "Helvetica"
-    },
-    description: {
-        width: "100%",
-        fontFamily: "Helvetica",
-        padding: 25,
-        paddingBottom: 15,
-        paddingTop: 0,
-        textAlign: "justify",
-    },
-    marketData: {
-        alignSelf: "start",
-        padding: 25,
-        paddingTop: 10,
-        width: "100%",
-        [theme?.breakpoints.down("md")]: {
-            display: "flex",
-            justifyContent: "space-around"
-        },
-        [theme?.breakpoints.down("sm")]: {
-            flexDirection: "column",
-            alignItems: "center",
-        },
-        [theme?.breakpoints.down("xs")]: {
-            alignItems: "start",
-        },
-
-    }
-
 }
 ));
 
@@ -87,11 +44,13 @@ const CoinInfo = ({ coin }) => {
     const { currency } = CryptoState();
     const [chartData, setChartData] = useState([]);
     const [days, setDays] = useState(1);
+    const [flag, setflag] = useState(false);
 
 
     useEffect(() => {
         const fetchChartData = async () => {
             const { data } = await axios.get(HistoricalChart(coin?.id, days, currency))
+            setflag(true);
             setChartData(data.prices);
         };
         fetchChartData();
@@ -100,7 +59,7 @@ const CoinInfo = ({ coin }) => {
         <ThemeProvider theme={darkTheme}>
             <div className={classes.container}>
                 {
-                    !chartData ? (
+                    (!chartData || flag === false) ? (
                         <CircularProgress
                             size={250}
                             thickness={1}
@@ -148,6 +107,7 @@ const CoinInfo = ({ coin }) => {
                                         key={day.value}
                                         onClick={() => {
                                             setDays(day.value);
+                                            setflag(false);
                                         }}
                                         selected={day.value === days}
                                     >

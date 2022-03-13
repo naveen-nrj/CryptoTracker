@@ -11,30 +11,30 @@ import { numberWithCommas } from '../components/Banner/Carousel';
 const useStyles = makeStyles((theme) => ({
     container: {
         display: "flex",
-        [theme?.breakpoints.down("md")]: {
+        [theme.breakpoints.down("md")]: {
             flexDirection: "column",
             alignItems: "center",
         },
     },
     sidebar: {
+        width: "30%",
+        [theme.breakpoints.down("md")]: {
+            width: "100%",
+        },
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         marginTop: 25,
         borderRight: "2px solid grey",
-        width: "30%",
-        [theme?.breakpoints.down("md")]: {
-            width: "30%",
-        },
     },
     heading: {
         fontWeight: "bold",
         marginBottom: 20,
-        fontFamily: "Helvetica"
+        fontFamily: "Montserrat",
     },
     description: {
         width: "100%",
-        fontFamily: "Helvetica",
+        fontFamily: "Montserrat",
         padding: 25,
         paddingBottom: 15,
         paddingTop: 0,
@@ -45,19 +45,18 @@ const useStyles = makeStyles((theme) => ({
         padding: 25,
         paddingTop: 10,
         width: "100%",
-        [theme?.breakpoints.down("md")]: {
+        [theme.breakpoints.down("md")]: {
             display: "flex",
-            justifyContent: "space-around"
+            justifyContent: "space-around",
         },
-        [theme?.breakpoints.down("sm")]: {
+        [theme.breakpoints.down("sm")]: {
             flexDirection: "column",
             alignItems: "center",
         },
-        [theme?.breakpoints.down("xs")]: {
+        [theme.breakpoints.down("xs")]: {
             alignItems: "start",
         },
-
-    }
+    },
 
 }
 ));
