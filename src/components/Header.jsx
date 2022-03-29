@@ -1,7 +1,9 @@
 import { AppBar, Container, MenuItem, Toolbar, Typography, Select, makeStyles, createTheme, ThemeProvider } from '@material-ui/core';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { CryptoState } from '../context/CryptoContext';
+import AuthModal from './Authentication/AuthModal';
+import UserSidebar from './Authentication/UserSidebar';
 
 const useStyles = makeStyles(() => ({
     title: {
@@ -31,18 +33,18 @@ const Header = () => {
 
     const {
         currency,
-        setCurrency
+        setCurrency,
+        user
     } = CryptoState();
 
-    useEffect(() => {
-        console.log(currency);
-    }, [currency]);
+
 
     return (
         <ThemeProvider theme={darkTheme}>
             <AppBar color="transparent" position='static'>
                 <Container>
                     <Toolbar>
+
                         <Typography
                             onClick={() => navigate("/")}
                             className={classes.title}
@@ -63,6 +65,10 @@ const Header = () => {
                             <MenuItem value={"USD"}>USD</MenuItem>
                             <MenuItem value={"INR"}>INR</MenuItem>
                         </Select>
+                        {
+                            user ? <UserSidebar /> : <AuthModal />
+
+                        }
                     </Toolbar>
                 </Container>
 

@@ -1,6 +1,4 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { CoinList } from '../config/apis';
 import { CryptoState } from '../context/CryptoContext';
 import { Container, Typography, createTheme, ThemeProvider, TextField, TableContainer, LinearProgress, TableHead, TableRow, TableCell, Table, TableBody } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -39,21 +37,13 @@ const CoinsTable = () => {
         },
     });
 
-    const { currency, symbol } = CryptoState();
+    const { currency, symbol, coins, loading, fetchCoinsList } = CryptoState();
 
-    const [coins, setCoins] = useState([]);
-    const [loading, setLoading] = useState(false);
+
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(1);
 
     useEffect(() => {
-        const fetchCoinsList = async () => {
-            setLoading(true);
-            const { data } = await axios.get(CoinList(currency));
-            setCoins(data);
-            setLoading(false);
-
-        }
         fetchCoinsList();
     }, [currency]);
 
